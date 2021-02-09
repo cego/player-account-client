@@ -1,0 +1,14 @@
+{
+    "name": "cego/player-account-client",
+    "description": "A library for interacting the player-account service.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thomas Wogelius",
+            "email": "thwo@cego.dk"
+        }
+    ],
+    "require": {
+        "cego/request-insurance": "0.1.*"
+    }
+}

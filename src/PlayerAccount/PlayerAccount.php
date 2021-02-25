@@ -3,27 +3,16 @@
 namespace Cego\PlayerAccount;
 
 use InvalidArgumentException;
+use Cego\PlayerAccount\Enums\Sites;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
+use Cego\PlayerAccount\Enums\Endpoints;
+use Cego\PlayerAccount\Enums\Environments;
 use Cego\RequestInsurance\Models\RequestInsurance;
 use Cego\PlayerAccount\Exceptions\PlayerAccountRequestFailedException;
 
 class PlayerAccount
 {
-    const INCIDENT_ENDPOINT = 'api/v1/user/%s/incident';
-
-    const ENVIRONMENTS = [
-        'testing',
-        'local',
-        'stage',
-        'production',
-    ];
-
-    const SITE_URLS = [
-        'spilnu'  => 'spilnu.dk',
-        'lyckost' => 'lyckost.se',
-    ];
-
     protected array $headers = [
         'Content-type'  => 'application/json',
         'Accept'        => 'application/json',
@@ -44,11 +33,11 @@ class PlayerAccount
         $site = strtolower($site);
         $environment = strtolower($environment);
 
-        if ( ! isset(static::SITE_URLS[$site])) {
+        if ( ! isset(Sites::URLS[$site])) {
             throw new InvalidArgumentException(sprintf('%s: Unknown site "%s"', __METHOD__, $site));
         }
 
-        if ( ! in_array($environment, static::ENVIRONMENTS)) {
+        if ( ! in_array($environment, Environments::ALL)) {
             throw new InvalidArgumentException(sprintf('%s: Unknown environment "%s"', __METHOD__, $environment));
         }
 
@@ -58,7 +47,7 @@ class PlayerAccount
             $this->headers['Remote-User'] = sprintf('%s-player-account-client-dev', $site);
         } else {
             // Stage and production setup
-            $this->baseUrl = sprintf('https://player-account-%s.%s', $environment, static::SITE_URLS[$site]);
+            $this->baseUrl = sprintf('https://player-account-%s.%s', $environment, Sites::URLS[$site]);
         }
     }
 
@@ -120,7 +109,7 @@ class PlayerAccount
     public function incident(int $userId, string $incident)
     {
         $payload = ['type' => $incident];
-        $endpoint = sprintf(static::INCIDENT_ENDPOINT, $userId);
+        $endpoint = sprintf(Endpoints::INCIDENT, $userId);
 
         return $this->post($endpoint, $payload);
     }

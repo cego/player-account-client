@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "861f0275a5a7e5ba171d0b0eda83a84c",
+    "content-hash": "a7c77c5195e40a0cdedc3440b067b5e3",
     "packages": [
         {
             "name": "cego/request-insurance",
@@ -6500,7 +6500,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.4|^8.0"
+        "php": "^7.4|^8.0",
+        "ext-json": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"

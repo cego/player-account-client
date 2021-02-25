@@ -2,7 +2,7 @@
 
 namespace Cego\PlayerAccount;
 
-use Exception;
+use InvalidArgumentException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use Cego\RequestInsurance\Models\RequestInsurance;
@@ -33,6 +33,36 @@ class PlayerAccount
     protected bool $useRequestInsurance = false;
 
     /**
+     * Protected PlayerAccount constructor, to enforce use of custom create method.
+     *
+     * @param string $site
+     * @param string $environment
+     */
+    protected function __construct(string $site, string $environment)
+    {
+        // Make sure that the given site and environment are supported
+        $site = strtolower($site);
+        $environment = strtolower($environment);
+
+        if ( ! isset(static::SITE_URLS[$site])) {
+            throw new InvalidArgumentException(sprintf('%s: Unknown site "%s"', __METHOD__, $site));
+        }
+
+        if ( ! in_array($environment, static::ENVIRONMENTS)) {
+            throw new InvalidArgumentException(sprintf('%s: Unknown environment "%s"', __METHOD__, $environment));
+        }
+
+        // Use specific parameters when testing locally
+        if ($environment === 'local') {
+            $this->baseUrl = 'http://player-account_api_1';
+            $this->headers['Remote-User'] = sprintf('%s-player-account-client-dev', $site);
+        } else {
+            // Stage and production setup
+            $this->baseUrl = sprintf('https://player-account-%s.%s', $environment, static::SITE_URLS[$site]);
+        }
+    }
+
+    /**
      * Create new instance of Player Account client
      *
      * @param string $site
@@ -40,36 +70,11 @@ class PlayerAccount
      *
      * @return static
      *
-     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public static function create(string $site, string $environment): self
     {
-        // Make sure that the given site and environment are supported
-        $site = strtolower($site);
-        $environment = strtolower($environment);
-
-        if ( ! isset(static::SITE_URLS[$site])) {
-            throw new Exception(sprintf('%s: Unknown site "%s"', __METHOD__, $site), 500);
-        }
-
-        if ( ! in_array($environment, static::ENVIRONMENTS)) {
-            throw new Exception(sprintf('%s: Unknown environment "%s"', __METHOD__, $environment), 500);
-        }
-
-        $playerAccount = new static();
-
-        // Use specific parameters when testing locally
-        if ($environment === 'local') {
-            $playerAccount->baseUrl = 'http://player-account_api_1';
-            $playerAccount->headers['Remote-User'] = sprintf('%s-player-account-client-dev', $site);
-
-            return $playerAccount;
-        }
-
-        // Stage and production setup
-        $playerAccount->baseUrl = sprintf('https://player-account-%s.%s', $environment, static::SITE_URLS[$site]);
-
-        return $playerAccount;
+        return new static($site, $environment);
     }
 
     /**

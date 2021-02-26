@@ -1,6 +1,6 @@
 <?php
 
-namespace Cego\PlayerAccount\Enums;
+namespace Cego\PlayerAccount\Enumerations;
 
 class Endpoints
 {

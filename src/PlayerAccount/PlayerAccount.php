@@ -3,12 +3,11 @@
 namespace Cego\PlayerAccount;
 
 use InvalidArgumentException;
-use Cego\PlayerAccount\Enums\Sites;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
-use Cego\PlayerAccount\Enums\Endpoints;
-use Cego\PlayerAccount\Enums\Environments;
+use Cego\PlayerAccount\Enumerations\Endpoints;
 use Cego\RequestInsurance\Models\RequestInsurance;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Cego\PlayerAccount\Exceptions\PlayerAccountRequestFailedException;
 
 class PlayerAccount
@@ -16,6 +15,7 @@ class PlayerAccount
     protected array $headers = [
         'Content-type'  => 'application/json',
         'Accept'        => 'application/json',
+        'Remote-User'   => 'player-account-client-dev',
     ];
 
     protected string $baseUrl;
@@ -24,46 +24,25 @@ class PlayerAccount
     /**
      * Protected PlayerAccount constructor, to enforce use of custom create method.
      *
-     * @param string $site
-     * @param string $environment
+     * @param string $baseUrl
      */
-    protected function __construct(string $site, string $environment)
+    final protected function __construct(string $baseUrl)
     {
-        // Make sure that the given site and environment are supported
-        $site = strtolower($site);
-        $environment = strtolower($environment);
-
-        if ( ! isset(Sites::URLS[$site])) {
-            throw new InvalidArgumentException(sprintf('%s: Unknown site "%s"', __METHOD__, $site));
-        }
-
-        if ( ! in_array($environment, Environments::ALL)) {
-            throw new InvalidArgumentException(sprintf('%s: Unknown environment "%s"', __METHOD__, $environment));
-        }
-
-        // Use specific parameters when testing locally
-        if ($environment === 'local') {
-            $this->baseUrl = 'http://player-account_api_1';
-            $this->headers['Remote-User'] = sprintf('%s-player-account-client-dev', $site);
-        } else {
-            // Stage and production setup
-            $this->baseUrl = sprintf('https://player-account-%s.%s', $environment, Sites::URLS[$site]);
-        }
+        $this->baseUrl = $baseUrl;
     }
 
     /**
      * Create new instance of Player Account client
      *
-     * @param string $site
-     * @param string $environment
+     * @param string $baseUrl
      *
      * @return static
      *
      * @throws InvalidArgumentException
      */
-    public static function create(string $site, string $environment): self
+    public static function create(string $baseUrl): self
     {
-        return new static($site, $environment);
+        return new static($baseUrl);
     }
 
     /**
@@ -193,14 +172,21 @@ class PlayerAccount
      * @param array $payload
      *
      * @return RequestInsurance
+     *
+     * @throws BindingResolutionException
      */
     protected function makeRequestInsurance(string $method, string $endpoint, array $payload = []): RequestInsurance
     {
-        return RequestInsurance::create([
+        // We use the IOC container to make mocking possible
+        /** @var RequestInsurance $requestInsurance */
+        $requestInsurance = app()->make(RequestInsurance::class);
+        $requestInsurance->fill([
             'url'     => $this->getFullEndpointUrl($endpoint),
             'method'  => $method,
             'payload' => json_encode($payload),
             'headers' => json_encode($this->headers),
-        ]);
+        ])->save();
+
+        return $requestInsurance;
     }
 }

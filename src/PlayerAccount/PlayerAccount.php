@@ -43,7 +43,7 @@ class PlayerAccount
     protected bool $useRequestInsurance = false;
 
     /**
-     * Protected PlayerAccount constructor, to enforce use of custom create method.
+     * Protected PlayerAccount constructor, to enforce use of custom create method
      *
      * @param string $baseUrl
      */
@@ -205,7 +205,7 @@ class PlayerAccount
     }
 
     /**
-     * Makes a Request Insurance to the service
+     * Makes a Request Insurance to Player Account service
      *
      * @param string $method
      * @param string $endpoint

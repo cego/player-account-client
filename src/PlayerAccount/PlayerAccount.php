@@ -10,15 +10,36 @@ use Cego\RequestInsurance\Models\RequestInsurance;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Cego\PlayerAccount\Exceptions\PlayerAccountRequestFailedException;
 
+/**
+ * Class PlayerAccount
+ *
+ * Used by applications to interact with the Player Account service
+ */
 class PlayerAccount
 {
+    /**
+     * HTTP-headers to be sent to the Player Account service
+     *
+     * @var string[]
+     */
     protected array $headers = [
         'Content-type'  => 'application/json',
         'Accept'        => 'application/json',
         'Remote-User'   => 'player-account-client-dev',
     ];
 
+    /**
+     * The base URL of the Player Account service
+     *
+     * @var string
+     */
     protected string $baseUrl;
+
+    /**
+     * Specifies if Request Insurance should be used to handle requests to the Player Account service
+     *
+     * @var bool
+     */
     protected bool $useRequestInsurance = false;
 
     /**
@@ -113,15 +134,15 @@ class PlayerAccount
      *
      * @return Response|RequestInsurance
      *
-     * @throws PlayerAccountRequestFailedException
+     * @throws PlayerAccountRequestFailedException|BindingResolutionException
      */
     protected function post(string $endpoint, array $payload)
     {
         if ($this->useRequestInsurance) {
             return $this->makeRequestInsurance('post', $endpoint, $payload);
-        } else {
-            return $this->makeRequest('post', $endpoint, $payload);
         }
+
+        return $this->makeRequest('post', $endpoint, $payload);
     }
 
     /**

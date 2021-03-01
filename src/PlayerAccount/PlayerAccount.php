@@ -104,12 +104,31 @@ class PlayerAccount
      *
      * @return Response|RequestInsurance
      *
-     * @throws PlayerAccountRequestFailedException
+     * @throws PlayerAccountRequestFailedException|BindingResolutionException
      */
     public function incident(int $userId, string $incident)
     {
         $payload = ['type' => $incident];
         $endpoint = sprintf(Endpoints::INCIDENT, $userId);
+
+        return $this->post($endpoint, $payload);
+    }
+
+    /**
+     * Updates a player's attributes
+     *
+     * @param int $userId
+     * @param array $attributes
+     * @param int $adminUserId
+     *
+     * @return RequestInsurance|Response
+     *
+     * @throws PlayerAccountRequestFailedException|BindingResolutionException
+     */
+    public function update(int $userId, array $attributes, int $adminUserId)
+    {
+        $payload = array_merge($attributes, ['admin_user_id' => $adminUserId]);
+        $endpoint = sprintf(Endpoints::UPDATE, $userId);
 
         return $this->post($endpoint, $payload);
     }

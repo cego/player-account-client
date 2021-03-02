@@ -119,15 +119,21 @@ class PlayerAccount
      *
      * @param int $userId
      * @param array $attributes
-     * @param int $adminUserId
+     * @param int|null $adminUserId
      *
      * @return RequestInsurance|Response
      *
-     * @throws PlayerAccountRequestFailedException|BindingResolutionException
+     * @throws BindingResolutionException
+     * @throws PlayerAccountRequestFailedException
      */
-    public function update(int $userId, array $attributes, int $adminUserId)
+    public function update(int $userId, array $attributes, ?int $adminUserId = null)
     {
-        $payload = array_merge($attributes, ['admin_user_id' => $adminUserId]);
+        $payload = $attributes;
+
+        if($adminUserId !== null) {
+            $payload = array_merge($payload, ['admin_user_id' => $adminUserId]);
+        }
+
         $endpoint = sprintf(Endpoints::UPDATE, $userId);
 
         return $this->post($endpoint, $payload);

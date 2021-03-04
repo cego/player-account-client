@@ -43,7 +43,7 @@ class PlayerAccount
     protected bool $useRequestInsurance = false;
 
     /**
-     * Protected PlayerAccount constructor, to enforce use of custom create method.
+     * Protected PlayerAccount constructor, to enforce use of custom create method
      *
      * @param string $baseUrl
      */
@@ -105,11 +105,37 @@ class PlayerAccount
      * @return Response|RequestInsurance
      *
      * @throws PlayerAccountRequestFailedException
+     * @throws BindingResolutionException
      */
     public function incident(int $userId, string $incident)
     {
         $payload = ['type' => $incident];
         $endpoint = sprintf(Endpoints::INCIDENT, $userId);
+
+        return $this->post($endpoint, $payload);
+    }
+
+    /**
+     * Updates a player's attributes
+     *
+     * @param int $userId
+     * @param array $attributes
+     * @param int|null $adminUserId
+     *
+     * @return Response|RequestInsurance
+     *
+     * @throws PlayerAccountRequestFailedException
+     * @throws BindingResolutionException
+     */
+    public function update(int $userId, array $attributes, ?int $adminUserId = null)
+    {
+        $payload = $attributes;
+
+        if($adminUserId !== null) {
+            $payload['admin_user_id'] = $adminUserId;
+        }
+
+        $endpoint = sprintf(Endpoints::UPDATE, $userId);
 
         return $this->post($endpoint, $payload);
     }
@@ -134,7 +160,8 @@ class PlayerAccount
      *
      * @return Response|RequestInsurance
      *
-     * @throws PlayerAccountRequestFailedException|BindingResolutionException
+     * @throws PlayerAccountRequestFailedException
+     * @throws BindingResolutionException
      */
     protected function post(string $endpoint, array $payload)
     {
@@ -186,7 +213,7 @@ class PlayerAccount
     }
 
     /**
-     * Makes a Request Insurance to the service
+     * Makes a Request Insurance to Player Account service
      *
      * @param string $method
      * @param string $endpoint

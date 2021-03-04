@@ -17,8 +17,16 @@ $playerAccount->useRequestInsurance();
 ```php
 // Triggering a user incident
 $playerAccount->incident($userId, $incident);
-```
 
+// Updating attributes of a user
+$attributes = [
+  'attribute1' => 'new value 1',
+  'attribute2' => 'new value 2',
+  ...  
+];
+
+$playerAccount->update($userId, $attributes, $admin_user_id = null);
+```
 
 Project was initially created by:
 

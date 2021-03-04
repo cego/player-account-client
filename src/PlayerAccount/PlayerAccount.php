@@ -121,10 +121,9 @@ class PlayerAccount
      * @param array $attributes
      * @param int|null $adminUserId
      *
-     * @return RequestInsurance|Response
+     * @return Response|RequestInsurance
      *
-     * @throws BindingResolutionException
-     * @throws PlayerAccountRequestFailedException
+     * @throws PlayerAccountRequestFailedException|BindingResolutionException
      */
     public function update(int $userId, array $attributes, ?int $adminUserId = null)
     {

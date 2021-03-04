@@ -104,7 +104,8 @@ class PlayerAccount
      *
      * @return Response|RequestInsurance
      *
-     * @throws PlayerAccountRequestFailedException|BindingResolutionException
+     * @throws PlayerAccountRequestFailedException
+     * @throws BindingResolutionException
      */
     public function incident(int $userId, string $incident)
     {
@@ -123,7 +124,8 @@ class PlayerAccount
      *
      * @return Response|RequestInsurance
      *
-     * @throws PlayerAccountRequestFailedException|BindingResolutionException
+     * @throws PlayerAccountRequestFailedException
+     * @throws BindingResolutionException
      */
     public function update(int $userId, array $attributes, ?int $adminUserId = null)
     {
@@ -158,7 +160,8 @@ class PlayerAccount
      *
      * @return Response|RequestInsurance
      *
-     * @throws PlayerAccountRequestFailedException|BindingResolutionException
+     * @throws PlayerAccountRequestFailedException
+     * @throws BindingResolutionException
      */
     protected function post(string $endpoint, array $payload)
     {

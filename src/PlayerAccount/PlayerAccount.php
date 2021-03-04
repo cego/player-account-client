@@ -132,7 +132,7 @@ class PlayerAccount
         $payload = $attributes;
 
         if($adminUserId !== null) {
-            $payload = array_merge($payload, ['admin_user_id' => $adminUserId]);
+            $payload['admin_user_id'] = $adminUserId;
         }
 
         $endpoint = sprintf(Endpoints::UPDATE, $userId);

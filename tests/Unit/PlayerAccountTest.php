@@ -4,41 +4,56 @@ namespace Tests\Unit;
 
 use Mockery;
 use Tests\TestCase;
-use Illuminate\Support\Facades\Http;
+use Mockery\MockInterface;
 use Cego\PlayerAccount\PlayerAccount;
 use Cego\PlayerAccount\Enumerations\Endpoints;
-use Cego\RequestInsurance\Models\RequestInsurance;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PlayerAccountTest extends TestCase
 {
-    use RefreshDatabase;
+    protected MockInterface $mock;
 
-    /** @test */
-    public function it_creates_incident()
+    protected function setUp(): void
     {
-        Http::fake();
-        $response = PlayerAccount::create('https://player-account-testing.spilnu.dk')->incident(1, 'test');
-        $this->assertEquals(200, $response->status());
+        $this->mock = Mockery::mock(PlayerAccount::class)
+            ->makePartial()
+            ->shouldAllowMockingProtectedMethods();
+
+        parent::setUp();
     }
 
     /** @test */
-    public function it_creates_incident_with_request_insurance()
+    public function incident()
     {
-        $baseUrl = 'https://player-account-testing.spilnu.dk';
-        $endpointUrl = sprintf(Endpoints::INCIDENT, 1);
+        // Assert
+        $this->mock->shouldReceive('postRequest')
+            ->once()
+            ->with(sprintf(Endpoints::INCIDENT, 1), ['type' => 'test']);
 
-        $mock = Mockery::mock(RequestInsurance::class)->makePartial();
-        $mock->shouldReceive('setAttribute')->once()->with('url', sprintf('%s/%s', $baseUrl, $endpointUrl));
-        $mock->shouldReceive('setAttribute')->once()->with('method', 'post');
-        $mock->shouldReceive('setAttribute')->once()->with('payload', json_encode(['type' => 'test']));
-        $mock->shouldReceive('save')->once();
+        // Act
+        $this->mock->incident(1, 'test');
+    }
 
-        $this->instance(
-            RequestInsurance::class,
-            $mock
-        );
+    /** @test */
+    public function update_without_admin_user()
+    {
+        // Assert
+        $this->mock->shouldReceive('postRequest')
+            ->once()
+            ->with(sprintf(Endpoints::UPDATE, 1), ['attribute' => 'newValue']);
 
-        PlayerAccount::create('https://player-account-testing.spilnu.dk')->useRequestInsurance()->incident(1, 'test');
+        // Act
+        $this->mock->update(1, ['attribute' => 'newValue']);
+    }
+
+    /** @test */
+    public function update_with_admin_user()
+    {
+        // Assert
+        $this->mock->shouldReceive('postRequest')
+            ->once()
+            ->with(sprintf(Endpoints::UPDATE, 1), ['attribute' => 'newValue', 'admin_user_id' => 2]);
+
+        // Act
+        $this->mock->update(1, ['attribute' => 'newValue'], 2);
     }
 }

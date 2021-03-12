@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d489b2cc847f8825a2e891030818ebdf",
+    "content-hash": "cade7423630b1d99be72b5762106b6c7",
     "packages": [
         {
             "name": "brick/math",
@@ -121,6 +121,62 @@
                 "source": "https://github.com/cego/request-insurance/tree/0.1.2"
             },
             "time": "2021-02-09T08:52:58+00:00"
+        },
+        {
+            "name": "cego/service-client-base",
+            "version": "0.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cego/service-client-base.git",
+                "reference": "95c6dc3c49a1aed6c3838856f985437da2615e68"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cego/service-client-base/zipball/95c6dc3c49a1aed6c3838856f985437da2615e68",
+                "reference": "95c6dc3c49a1aed6c3838856f985437da2615e68",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^6.5.5|^7.0.1",
+                "illuminate/http": "^7.0|^8.0",
+                "illuminate/support": "^7.0|^8.0",
+                "php": "^7.4|^8.0",
+                "phpoption/phpoption": "^1.7",
+                "vlucas/phpdotenv": "^5.2"
+            },
+            "require-dev": {
+                "cego/request-insurance": "^0.1.3",
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "orchestra/testbench": "^6.13",
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "^9.0"
+            },
+            "suggest": {
+                "cego/request-insurance": "Allows for sending asynchronous requests"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cego\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Niki Ewald Zakariassen",
+                    "email": "niza@cego.dk"
+                }
+            ],
+            "description": "A package containing utility and abstractions for various specific clients implementations",
+            "support": {
+                "issues": "https://github.com/cego/service-client-base/issues",
+                "source": "https://github.com/cego/service-client-base/tree/0.0.3"
+            },
+            "time": "2021-03-11T08:46:26+00:00"
         },
         {
             "name": "doctrine/inflector",

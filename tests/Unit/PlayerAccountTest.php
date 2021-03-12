@@ -37,7 +37,7 @@ class PlayerAccountTest extends TestCase
     public function update_without_admin_user()
     {
         // Assert
-        $this->mock->shouldReceive('postRequest')
+        $this->mock->shouldReceive('putRequest')
             ->once()
             ->with(sprintf(Endpoints::UPDATE, 1), ['attribute' => 'newValue']);
 
@@ -49,7 +49,7 @@ class PlayerAccountTest extends TestCase
     public function update_with_admin_user()
     {
         // Assert
-        $this->mock->shouldReceive('postRequest')
+        $this->mock->shouldReceive('putRequest')
             ->once()
             ->with(sprintf(Endpoints::UPDATE, 1), ['attribute' => 'newValue', 'admin_user_id' => 2]);
 

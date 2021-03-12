@@ -53,6 +53,6 @@ class PlayerAccount extends AbstractServiceClient
 
         $endpoint = sprintf(Endpoints::UPDATE, $userId);
 
-        return $this->postRequest($endpoint, $payload);
+        return $this->putRequest($endpoint, $payload);
     }
 }

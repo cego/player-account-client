@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "71144df27ded92e758057f3366046806",
+    "content-hash": "6d7160d65633365677c2711dfac414e8",
     "packages": [
         {
             "name": "brick/math",
@@ -61,66 +61,6 @@
                 }
             ],
             "time": "2021-01-20T22:51:39+00:00"
-        },
-        {
-            "name": "cego/request-insurance",
-            "version": "0.1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/cego/request-insurance.git",
-                "reference": "7f8fa184e303e23e97bfe982a50168809013fadf"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/cego/request-insurance/zipball/7f8fa184e303e23e97bfe982a50168809013fadf",
-                "reference": "7f8fa184e303e23e97bfe982a50168809013fadf",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "ext-mbstring": "*",
-                "illuminate/console": "^7.0|^8.0",
-                "illuminate/database": "^7.0|^8.0",
-                "illuminate/http": "^7.0|^8.0",
-                "illuminate/pagination": "^7.0|^8.0",
-                "illuminate/routing": "^7.0|^8.0",
-                "illuminate/support": "^7.0|^8.0",
-                "illuminate/view": "^7.0|^8.0",
-                "nbj/stopwatch": "^0.0.5",
-                "nesbot/carbon": "^2.17",
-                "php": "^7.3|^8.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "*"
-            },
-            "type": "project",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Cego\\RequestInsurance\\RequestInsuranceServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Cego\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nikolaj Boel Jensen",
-                    "email": "nbj@creationsftw.com"
-                }
-            ],
-            "description": "Package for Laravel that facilitates and ensures that http requests are sent",
-            "support": {
-                "source": "https://github.com/cego/request-insurance/tree/0.1.3"
-            },
-            "time": "2021-03-09T10:15:16+00:00"
         },
         {
             "name": "cego/service-client-base",
@@ -782,16 +722,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.32.1",
+            "version": "v8.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "7c37b64f8153c16b6406f5c28cf37828ebbe8846"
+                "reference": "03efea900247ed7b9fe0056311ad555033c6e854"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/7c37b64f8153c16b6406f5c28cf37828ebbe8846",
-                "reference": "7c37b64f8153c16b6406f5c28cf37828ebbe8846",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/03efea900247ed7b9fe0056311ad555033c6e854",
+                "reference": "03efea900247ed7b9fe0056311ad555033c6e854",
                 "shasum": ""
             },
             "require": {
@@ -946,7 +886,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-03-09T15:37:45+00:00"
+            "time": "2021-03-16T14:21:03+00:00"
         },
         {
             "name": "league/commonmark",
@@ -1295,50 +1235,6 @@
                 }
             ],
             "time": "2020-12-14T13:15:25+00:00"
-        },
-        {
-            "name": "nbj/stopwatch",
-            "version": "0.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nbj/stopwatch.git",
-                "reference": "4d19002f556581d9c036fc0517e62a9bcc8ae92d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nbj/stopwatch/zipball/4d19002f556581d9c036fc0517e62a9bcc8ae92d",
-                "reference": "4d19002f556581d9c036fc0517e62a9bcc8ae92d",
-                "shasum": ""
-            },
-            "require": {
-                "nesbot/carbon": "^2.0.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "*",
-                "phpunit/phpunit": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Nbj\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nikolaj Boel Jensen",
-                    "email": "nbj@cego.dk"
-                }
-            ],
-            "description": "Library for measuring how long code takes to execute",
-            "support": {
-                "issues": "https://github.com/nbj/stopwatch/issues",
-                "source": "https://github.com/nbj/stopwatch/tree/0.0.5"
-            },
-            "time": "2020-04-23T05:35:36+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -5276,25 +5172,25 @@
         },
         {
             "name": "orchestra/testbench",
-            "version": "v6.13.0",
+            "version": "v6.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench.git",
-                "reference": "ad3dbdf82bb3327a7b65d6191b88d0ddb3f98143"
+                "reference": "9c6cd39d2c2309b7b32ef738ff73527fab5d19bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench/zipball/ad3dbdf82bb3327a7b65d6191b88d0ddb3f98143",
-                "reference": "ad3dbdf82bb3327a7b65d6191b88d0ddb3f98143",
+                "url": "https://api.github.com/repos/orchestral/testbench/zipball/9c6cd39d2c2309b7b32ef738ff73527fab5d19bc",
+                "reference": "9c6cd39d2c2309b7b32ef738ff73527fab5d19bc",
                 "shasum": ""
             },
             "require": {
                 "laravel/framework": "^8.25",
                 "mockery/mockery": "^1.4.2",
-                "orchestra/testbench-core": "^6.16",
+                "orchestra/testbench-core": "^6.18",
                 "php": "^7.3 || ^8.0",
                 "phpunit/phpunit": "^8.4 || ^9.3.3",
-                "spatie/laravel-ray": "^1.9.3"
+                "spatie/laravel-ray": "^1.17.1"
             },
             "type": "library",
             "extra": {
@@ -5325,7 +5221,7 @@
             ],
             "support": {
                 "issues": "https://github.com/orchestral/testbench/issues",
-                "source": "https://github.com/orchestral/testbench/tree/v6.13.0"
+                "source": "https://github.com/orchestral/testbench/tree/v6.14.0"
             },
             "funding": [
                 {
@@ -5337,20 +5233,20 @@
                     "type": "liberapay"
                 }
             ],
-            "time": "2021-02-21T14:16:16+00:00"
+            "time": "2021-03-16T05:55:03+00:00"
         },
         {
             "name": "orchestra/testbench-core",
-            "version": "v6.17.1",
+            "version": "v6.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench-core.git",
-                "reference": "a5dc831264d4192954ea5abb9f4323e286429b3d"
+                "reference": "47e425b91c06b53936b05b06a0bc503211643e8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/a5dc831264d4192954ea5abb9f4323e286429b3d",
-                "reference": "a5dc831264d4192954ea5abb9f4323e286429b3d",
+                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/47e425b91c06b53936b05b06a0bc503211643e8d",
+                "reference": "47e425b91c06b53936b05b06a0bc503211643e8d",
                 "shasum": ""
             },
             "require": {
@@ -5364,7 +5260,7 @@
                 "laravel/laravel": "8.x-dev",
                 "mockery/mockery": "^1.4.2",
                 "orchestra/canvas": "^6.1",
-                "phpunit/phpunit": "^8.4 || ^9.3.3"
+                "phpunit/phpunit": "^8.4 || ^9.3.3 || ^10.0"
             },
             "suggest": {
                 "laravel/framework": "Required for testing (^8.26).",
@@ -5427,7 +5323,7 @@
                     "type": "liberapay"
                 }
             ],
-            "time": "2021-03-09T22:59:25+00:00"
+            "time": "2021-03-16T05:44:15+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -7329,16 +7225,16 @@
         },
         {
             "name": "spatie/laravel-ray",
-            "version": "1.15.1",
+            "version": "1.17.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ray.git",
-                "reference": "4b2a00b3992b068ff760c25c45e389543996e25b"
+                "reference": "c25f2c2cdf3221abce3b1250cb7296721acfd2b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ray/zipball/4b2a00b3992b068ff760c25c45e389543996e25b",
-                "reference": "4b2a00b3992b068ff760c25c45e389543996e25b",
+                "url": "https://api.github.com/repos/spatie/laravel-ray/zipball/c25f2c2cdf3221abce3b1250cb7296721acfd2b8",
+                "reference": "c25f2c2cdf3221abce3b1250cb7296721acfd2b8",
                 "shasum": ""
             },
             "require": {
@@ -7393,7 +7289,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-ray/issues",
-                "source": "https://github.com/spatie/laravel-ray/tree/1.15.1"
+                "source": "https://github.com/spatie/laravel-ray/tree/1.17.1"
             },
             "funding": [
                 {
@@ -7405,7 +7301,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2021-03-10T11:38:37+00:00"
+            "time": "2021-03-13T12:50:02+00:00"
         },
         {
             "name": "spatie/macroable",

@@ -19,14 +19,25 @@ class PlayerAccount extends AbstractServiceClient
      *
      * @param int $userId
      * @param string $incident
+     * @param int|null $adminUserId
+     * @param string|null $reason
      *
      * @return Response
      *
      * @throws ServiceRequestFailedException
      */
-    public function incident(int $userId, string $incident): Response
+    public function incident(int $userId, string $incident, ?int $adminUserId = null, ?string $reason = null): Response
     {
         $payload = ['type' => $incident];
+
+        if ($adminUserId !== null) {
+            $payload['admin_user_id'] = $adminUserId;
+        }
+
+        if ($reason !== null) {
+            $payload['reason'] = $reason;
+        }
+
         $endpoint = sprintf(Endpoints::INCIDENT, $userId);
 
         return $this->postRequest($endpoint, $payload);

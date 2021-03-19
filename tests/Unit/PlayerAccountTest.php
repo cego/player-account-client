@@ -34,6 +34,30 @@ class PlayerAccountTest extends TestCase
     }
 
     /** @test */
+    public function incident_with_admin_user()
+    {
+        // Assert
+        $this->mock->shouldReceive('postRequest')
+            ->once()
+            ->with(sprintf(Endpoints::INCIDENT, 1), ['type' => 'test', 'admin_user_id' => 2]);
+
+        // Act
+        $this->mock->incident(1, 'test', 2);
+    }
+
+    /** @test */
+    public function incident_with_admin_user_and_reason()
+    {
+        // Assert
+        $this->mock->shouldReceive('postRequest')
+            ->once()
+            ->with(sprintf(Endpoints::INCIDENT, 1), ['type' => 'test', 'admin_user_id' => 2, 'reason' => 'test reason']);
+
+        // Act
+        $this->mock->incident(1, 'test', 2, 'test reason');
+    }
+
+    /** @test */
     public function update_without_admin_user()
     {
         // Assert

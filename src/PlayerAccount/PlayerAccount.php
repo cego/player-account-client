@@ -15,55 +15,55 @@ use Cego\ServiceClientBase\Exceptions\ServiceRequestFailedException;
 class PlayerAccount extends AbstractServiceClient
 {
     /**
+     * Payload to be sent with the request
+     *
+     * @var array
+     */
+    protected array $payload = [];
+
+    /**
+     * Define payload for the request
+     *
+     * @param array $payload
+     *
+     * @return PlayerAccount
+     */
+    public function withPayload(array $payload): self
+    {
+        $this->payload = $payload;
+
+        return $this;
+    }
+
+    /**
      * Trigger an incident for a player
      *
      * @param int $userId
-     * @param string $incident
-     * @param int|null $adminUserId
-     * @param string|null $reason
      *
      * @return Response
      *
      * @throws ServiceRequestFailedException
      */
-    public function incident(int $userId, string $incident, ?int $adminUserId = null, ?string $reason = null): Response
+    public function incident(int $userId): Response
     {
-        $payload = ['type' => $incident];
-
-        if ($adminUserId !== null) {
-            $payload['admin_user_id'] = $adminUserId;
-        }
-
-        if ($reason !== null) {
-            $payload['reason'] = $reason;
-        }
-
         $endpoint = sprintf(Endpoints::INCIDENT, $userId);
 
-        return $this->postRequest($endpoint, $payload);
+        return $this->postRequest($endpoint, $this->payload);
     }
 
     /**
      * Updates a player's attributes
      *
      * @param int $userId
-     * @param array $attributes
-     * @param int|null $adminUserId
      *
      * @return Response
      *
      * @throws ServiceRequestFailedException
      */
-    public function update(int $userId, array $attributes, ?int $adminUserId = null): Response
+    public function update(int $userId): Response
     {
-        $payload = $attributes;
-
-        if ($adminUserId !== null) {
-            $payload['admin_user_id'] = $adminUserId;
-        }
-
         $endpoint = sprintf(Endpoints::UPDATE, $userId);
 
-        return $this->putRequest($endpoint, $payload);
+        return $this->putRequest($endpoint, $this->payload);
     }
 }

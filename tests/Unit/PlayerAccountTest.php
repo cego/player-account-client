@@ -30,31 +30,7 @@ class PlayerAccountTest extends TestCase
             ->with(sprintf(Endpoints::INCIDENT, 1), ['type' => 'test']);
 
         // Act
-        $this->mock->incident(1, 'test');
-    }
-
-    /** @test */
-    public function incident_with_admin_user()
-    {
-        // Assert
-        $this->mock->shouldReceive('postRequest')
-            ->once()
-            ->with(sprintf(Endpoints::INCIDENT, 1), ['type' => 'test', 'admin_user_id' => 2]);
-
-        // Act
-        $this->mock->incident(1, 'test', 2);
-    }
-
-    /** @test */
-    public function incident_with_admin_user_and_reason()
-    {
-        // Assert
-        $this->mock->shouldReceive('postRequest')
-            ->once()
-            ->with(sprintf(Endpoints::INCIDENT, 1), ['type' => 'test', 'admin_user_id' => 2, 'reason' => 'test reason']);
-
-        // Act
-        $this->mock->incident(1, 'test', 2, 'test reason');
+        $this->mock->withPayload(['type' => 'test'])->incident(1);
     }
 
     /** @test */
@@ -66,18 +42,6 @@ class PlayerAccountTest extends TestCase
             ->with(sprintf(Endpoints::UPDATE, 1), ['attribute' => 'newValue']);
 
         // Act
-        $this->mock->update(1, ['attribute' => 'newValue']);
-    }
-
-    /** @test */
-    public function update_with_admin_user()
-    {
-        // Assert
-        $this->mock->shouldReceive('putRequest')
-            ->once()
-            ->with(sprintf(Endpoints::UPDATE, 1), ['attribute' => 'newValue', 'admin_user_id' => 2]);
-
-        // Act
-        $this->mock->update(1, ['attribute' => 'newValue'], 2);
+        $this->mock->withPayload(['attribute' => 'newValue'])->update(1);
     }
 }

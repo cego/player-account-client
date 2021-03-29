@@ -30,7 +30,7 @@ class PlayerAccountTest extends TestCase
             ->with(sprintf(Endpoints::INCIDENT, 1), ['type' => 'test']);
 
         // Act
-        $this->mock->withPayload(['type' => 'test'])->incident(1);
+        $this->mock->incident(1, ['type' => 'test']);
     }
 
     /** @test */
@@ -42,6 +42,6 @@ class PlayerAccountTest extends TestCase
             ->with(sprintf(Endpoints::UPDATE, 1), ['attribute' => 'newValue']);
 
         // Act
-        $this->mock->withPayload(['attribute' => 'newValue'])->update(1);
+        $this->mock->update(1, ['attribute' => 'newValue']);
     }
 }

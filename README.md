@@ -15,22 +15,19 @@ $playerAccount->useRequestInsurance();
 
 ## Usage
 ```php
-// Setting payload
-$playerAccount->withPayload(array $payload);
-
 // Triggering a user incident
-$playerAccount->withPayload([
+$playerAccount->incident($userId, [
     'type'          => 'TheIncidentType',
-    'admin_user_id' => 1234,
+    'admin_user_id' => $adminUserId,
     'reason'        => 'A really good reason'
-])->incident($userId);
+]);
 
 // Updating attributes of a user
-$playerAccount->withPayload([
-    'admin_user_id'    => 1234,
+$playerAccount->update($userId, [
+    'admin_user_id'    => $adminUserId,
     'user_attribute_1' => 'Becomes this',
     'user_attribute_2' => 'Becomes that'
-])->update($userId);
+]);
 ```
 
 Project was initially created by:

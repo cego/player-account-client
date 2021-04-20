@@ -15,18 +15,32 @@ $playerAccount->useRequestInsurance();
 
 ## Usage
 ```php
+// Updating attributes of a user
+$playerAccount->update($userId, [
+    'admin_user_id'    => 123,
+    'user_attribute_1' => 'Becomes this',
+    'user_attribute_2' => 'Becomes that'
+]);
+
+// Adding a flag to a user
+$playerAccount->addFlag($userId, [
+    'type'          => 'TheFlagType',
+    'admin_user_id' => 123,
+    'reason'        => 'The player needs the flag'
+]);
+
+// Removing a flag from a user
+$playerAccount->removeFlag($userId, [
+    'type'          => 'TheFlagType',
+    'admin_user_id' => 123,
+    'reason'        => 'The player must have the flag removed'
+]);
+
 // Triggering a user incident
 $playerAccount->incident($userId, [
     'type'          => 'TheIncidentType',
-    'admin_user_id' => $adminUserId,
-    'reason'        => 'A really good reason'
-]);
-
-// Updating attributes of a user
-$playerAccount->update($userId, [
-    'admin_user_id'    => $adminUserId,
-    'user_attribute_1' => 'Becomes this',
-    'user_attribute_2' => 'Becomes that'
+    'admin_user_id' => 123,
+    'reason'        => 'Something happened that triggered the incident'
 ]);
 ```
 

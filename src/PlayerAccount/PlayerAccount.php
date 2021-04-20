@@ -47,4 +47,38 @@ class PlayerAccount extends AbstractServiceClient
 
         return $this->putRequest($endpoint, $payload);
     }
+
+    /**
+     * Adds a flag to a player
+     *
+     * @param int $userId
+     * @param array $payload
+     *
+     * @return Response
+     *
+     * @throws ServiceRequestFailedException
+     */
+    public function addFlag(int $userId, array $payload): Response
+    {
+        $endpoint = sprintf(Endpoints::ADD_FLAG, $userId);
+
+        return $this->postRequest($endpoint, $payload);
+    }
+
+    /**
+     * Removes a flag from a player
+     *
+     * @param int $userId
+     * @param array $payload
+     *
+     * @return Response
+     *
+     * @throws ServiceRequestFailedException
+     */
+    public function removeFlag(int $userId, array $payload): Response
+    {
+        $endpoint = sprintf(Endpoints::REMOVE_FLAG, $userId);
+
+        return $this->postRequest($endpoint, $payload);
+    }
 }

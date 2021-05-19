@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use Mockery;
+use Carbon\Carbon;
 use Tests\TestCase;
 use Mockery\MockInterface;
 use Cego\PlayerAccount\PlayerAccount;
@@ -25,9 +26,11 @@ class PlayerAccountTest extends TestCase
     public function it_sends_incident_request()
     {
         // Assert
+        $this->travelTo(Carbon::now()); // This is needed to lock the Carbon::now() to a fixed value, so the test can pass
+
         $this->mock->shouldReceive('postRequest')
             ->once()
-            ->with(sprintf(Endpoints::INCIDENT, 1), ['type' => 'test']);
+            ->with(sprintf(Endpoints::INCIDENT, 1), ['type' => 'test', 'sent_at' => Carbon::now()->toISOString()]);
 
         // Act
         $this->mock->incident(1, ['type' => 'test']);

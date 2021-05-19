@@ -2,6 +2,7 @@
 
 namespace Cego\PlayerAccount;
 
+use Carbon\Carbon;
 use Cego\PlayerAccount\Enumerations\Endpoints;
 use Cego\ServiceClientBase\AbstractServiceClient;
 use Cego\ServiceClientBase\RequestDrivers\Response;
@@ -26,6 +27,10 @@ class PlayerAccount extends AbstractServiceClient
      */
     public function incident(int $userId, array $payload): Response
     {
+        $payload = array_merge([
+            'sent_at' => Carbon::now()->toISOString()
+        ], $payload);
+
         $endpoint = sprintf(Endpoints::INCIDENT, $userId);
 
         return $this->postRequest($endpoint, $payload);

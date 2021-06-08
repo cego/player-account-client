@@ -8,6 +8,8 @@ use Tests\TestCase;
 use Mockery\MockInterface;
 use Cego\PlayerAccount\PlayerAccount;
 use Cego\PlayerAccount\Enumerations\Endpoints;
+use Cego\PlayerAccount\Paginators\UsersPaginator;
+use Cego\ServiceClientBase\RequestDrivers\Response;
 
 class PlayerAccountTest extends TestCase
 {
@@ -70,5 +72,82 @@ class PlayerAccountTest extends TestCase
 
         // Act
         $this->mock->removeFlag(1, ['flag_type' => 'TestFlagType']);
+    }
+
+    /** @test */
+    public function it_sends_users_requests(): void
+    {
+        // Arrange
+        $fields = ['a', 'b', 'c'];
+        $page = 2;
+        $perPage = 123;
+
+        $expectedQuery = [
+            'fields'  => implode(',', $fields),
+            'page'    => $page,
+            'perPage' => $perPage,
+        ];
+
+        // Assert
+        $this->mock->shouldReceive('getRequest')
+            ->once()
+            ->with(Endpoints::USERS, $expectedQuery, [])
+            ->andReturn(new Response(0, [], true));
+
+        // Act
+        $this->mock->users($fields, $page, $perPage);
+    }
+
+    /** @test */
+    public function it_can_access_multiple_pages_for_the_users_paginator(): void
+    {
+        // Arrange
+        $fields = ['a', 'b', 'c'];
+        $page = 2;
+        $perPage = 123;
+
+        // Assert
+        $this->mock->shouldReceive('getRequest')
+            ->once()
+            ->with(Endpoints::USERS, [
+                'fields'  => implode(',', $fields),
+                'page'    => $page,
+                'perPage' => $perPage,
+            ], [])
+            ->andReturn(new Response(200, [
+                'last_page'    => 3,
+                'current_page' => $page,
+            ], true));
+
+        $this->mock->shouldReceive('getRequest')
+            ->once()
+            ->with(Endpoints::USERS, [
+                'fields'  => implode(',', $fields),
+                'page'    => $page + 1,
+                'perPage' => $perPage,
+            ], [])
+            ->andReturn(new Response(200, [
+                'last_page'    => 3,
+                'current_page' => $page + 1,
+            ], true));
+
+        $this->mock->shouldReceive('getRequest')
+            ->once()
+            ->with(Endpoints::USERS, [
+                'fields'  => implode(',', $fields),
+                'page'    => $page - 1,
+                'perPage' => $perPage,
+            ], [])
+            ->andReturn(new Response(200, [
+                'last_page'    => 3,
+                'current_page' => $page - 1,
+            ], true));
+
+        // Act
+        /** @var UsersPaginator $usersPaginator */
+        $usersPaginator = $this->mock->users($fields, $page, $perPage);
+
+        $usersPaginator->getNextPage();
+        $usersPaginator->getPreviousPage();
     }
 }

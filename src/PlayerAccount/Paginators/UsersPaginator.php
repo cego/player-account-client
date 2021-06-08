@@ -48,7 +48,7 @@ class UsersPaginator extends Paginator
 
         return $this->client->users(
             explode(',', $this->queryParameters['fields']),
-            $this->getCurrentPageNumber() + 1,
+            $page,
             $this->queryParameters['perPage'] ?? null,
             $this->requestOptions,
         );

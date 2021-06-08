@@ -11,7 +11,7 @@ use Nbj\PropertyContainer;
  * @property-read string|int $label
  * @property-read bool $active
  *
- * @package Cego\SeamlessWallet\Paginators
+ * @package Cego\PlayerAccount\Paginators
  */
 class PaginatorLink extends PropertyContainer
 {

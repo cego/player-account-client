@@ -7,12 +7,12 @@ use Throwable;
 use Cego\PlayerAccount\Paginators\Paginator;
 
 /**
- * Class SeamlessWalletRequestFailedException
+ * Class NoSuchPageException
  */
 class NoSuchPageException extends Exception
 {
     /**
-     * SeamlessWalletRequestFailedException constructor.
+     * NoSuchPageException constructor.
      *
      * @param Paginator $paginator
      * @param int $invalidPage

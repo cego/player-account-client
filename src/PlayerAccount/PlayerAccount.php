@@ -4,6 +4,7 @@ namespace Cego\PlayerAccount;
 
 use Carbon\Carbon;
 use Cego\PlayerAccount\Enumerations\Endpoints;
+use Cego\PlayerAccount\Paginators\UsersPaginator;
 use Cego\ServiceClientBase\AbstractServiceClient;
 use Cego\ServiceClientBase\RequestDrivers\Response;
 use Cego\ServiceClientBase\Exceptions\ServiceRequestFailedException;
@@ -85,5 +86,33 @@ class PlayerAccount extends AbstractServiceClient
         $endpoint = sprintf(Endpoints::REMOVE_FLAG, $userId);
 
         return $this->postRequest($endpoint, $payload);
+    }
+
+    /**
+     * Returns a paginator of all users, with only the given fields returned.
+     *
+     * @param array $fields
+     * @param int $page
+     * @param int|null $perPage
+     * @param array $options
+     *
+     * @return UsersPaginator
+     *
+     * @throws ServiceRequestFailedException
+     */
+    public function users(array $fields, int $page = 1, ?int $perPage = null, array $options = []): UsersPaginator
+    {
+        $query = [
+            'fields' => implode(',', $fields),
+            'page'   => $page,
+        ];
+
+        if ($perPage) {
+            $query['perPage'] = $perPage;
+        }
+
+        $response = $this->getRequest(Endpoints::USERS, $query, $options);
+
+        return new UsersPaginator($response->data, $this, $query, $options);
     }
 }

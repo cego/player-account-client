@@ -107,10 +107,7 @@ abstract class Paginator
      */
     public function getLinks(): Collection
     {
-        return collect($this->data->get('links'))
-            ->map(function ($linkData) {
-                return new PaginatorLink($linkData);
-            });
+        return collect($this->data->get('links'))->mapInto(PaginatorLink::class);
     }
 
     /**

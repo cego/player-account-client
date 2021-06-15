@@ -9,4 +9,5 @@ class Endpoints
     public const REMOVE_FLAG = 'api/v1/user/%s/flag/remove';
     public const INCIDENT = 'api/v1/user/%s/incident';
     public const USERS = 'api/v1/user';
+    public const USER = 'api/v1/user/%s';
 }

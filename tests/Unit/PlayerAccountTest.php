@@ -13,6 +13,7 @@ use Cego\ServiceClientBase\RequestDrivers\Response;
 
 class PlayerAccountTest extends TestCase
 {
+    /** @var MockInterface|Mockery\Mock|PlayerAccount */
     protected MockInterface $mock;
 
     protected function setUp(): void

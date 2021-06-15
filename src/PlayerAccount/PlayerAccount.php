@@ -115,4 +115,23 @@ class PlayerAccount extends AbstractServiceClient
 
         return new UsersPaginator($response->data, $this, $query, $options);
     }
+
+    /**
+     * Returns an associative array, with a key for each given field and the users data for that key as value
+     *
+     * @param int $userId
+     * @param string[] $fields
+     * @param array $options
+     *
+     * @return array
+     *
+     * @throws ServiceRequestFailedException
+     */
+    public function user(int $userId, array $fields, array $options = []): array
+    {
+        $query = ['fields' => implode(',', $fields)];
+        $endpoint = sprintf(Endpoints::USER, $userId);
+
+        return $this->getRequest($endpoint, $query, $options)->data->only($fields)->toArray();
+    }
 }

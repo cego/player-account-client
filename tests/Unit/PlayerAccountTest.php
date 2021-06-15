@@ -150,4 +150,30 @@ class PlayerAccountTest extends TestCase
         $usersPaginator->getNextPage();
         $usersPaginator->getPreviousPage();
     }
+
+    /** @test */
+    public function it_can_return_data_for_a_single_user(): void
+    {
+        // Arrange
+        $fields = ['a', 'b', 'c'];
+        $userId = 123;
+
+        // Assert
+        $this->mock->shouldReceive('getRequest')
+            ->once()
+            ->with(sprintf(Endpoints::USER, $userId), ['fields'  => implode(',', $fields)], [])
+            ->andReturn(new Response(200, [
+                'a' => 'aa',
+                'b' => 'bb',
+                'c' => 'cc',
+            ], true));
+
+        // Act
+        $data = $this->mock->user($userId, $fields);
+        $this->assertEquals([
+            'a' => 'aa',
+            'b' => 'bb',
+            'c' => 'cc',
+        ], $data);
+    }
 }

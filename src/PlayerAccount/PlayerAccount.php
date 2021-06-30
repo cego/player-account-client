@@ -72,6 +72,60 @@ class PlayerAccount extends AbstractServiceClient
     }
 
     /**
+     * Adds the same flag to a batch of users
+     *
+     * @param array $userIds
+     * @param array $payload
+     *
+     * @return Response
+     *
+     * @throws ServiceRequestFailedException
+     */
+    public function batchAddFlag(array $userIds, array $payload): Response
+    {
+        $payload['user_ids'] = $userIds;
+
+        return $this->postRequest(Endpoints::BATCH_ADD_FLAG, $payload);
+    }
+
+    /**
+     * Removes the same flag from a batch of users
+     *
+     * @param array $userIds
+     * @param array $payload
+     *
+     * @return Response
+     *
+     * @throws ServiceRequestFailedException
+     */
+    public function batchRemoveFlag(array $userIds, array $payload): Response
+    {
+        $payload['user_ids'] = $userIds;
+
+        return $this->postRequest(Endpoints::BATCH_remove_FLAG, $payload);
+    }
+
+    /**
+     * Trigger an incident on a batch of players
+     *
+     * @param array $userIds
+     * @param array $payload
+     *
+     * @return Response
+     *
+     * @throws ServiceRequestFailedException
+     */
+    public function batchIncident(array $userIds, array $payload): Response
+    {
+        $payload = array_merge([
+            'user_ids' => $userIds,
+            'sent_at'  => Carbon::now()->toISOString()
+        ], $payload);
+
+        return $this->postRequest(Endpoints::BATCH_INCIDENT, $payload);
+    }
+
+    /**
      * Removes a flag from a player
      *
      * @param int $userId

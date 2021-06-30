@@ -102,7 +102,7 @@ class PlayerAccount extends AbstractServiceClient
     {
         $payload['user_ids'] = $userIds;
 
-        return $this->postRequest(Endpoints::BATCH_remove_FLAG, $payload);
+        return $this->postRequest(Endpoints::BATCH_REMOVE_FLAG, $payload);
     }
 
     /**

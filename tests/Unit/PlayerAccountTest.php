@@ -81,7 +81,7 @@ class PlayerAccountTest extends TestCase
         // Assert
         $this->mock->shouldReceive('postRequest')
             ->once()
-            ->with(Endpoints::BATCH_remove_FLAG, ['user_ids' => [1, 2, 3], 'flag_type' => 'TestFlagType']);
+            ->with(Endpoints::BATCH_REMOVE_FLAG, ['user_ids' => [1, 2, 3], 'flag_type' => 'TestFlagType']);
 
         // Act
         $this->mock->batchRemoveFlag([1, 2, 3], ['flag_type' => 'TestFlagType']);

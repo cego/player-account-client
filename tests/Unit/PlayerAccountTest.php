@@ -64,6 +64,44 @@ class PlayerAccountTest extends TestCase
     }
 
     /** @test */
+    public function it_sends_batch_add_flag_request()
+    {
+        // Assert
+        $this->mock->shouldReceive('postRequest')
+            ->once()
+            ->with(Endpoints::BATCH_ADD_FLAG, ['user_ids' => [1, 2, 3], 'flag_type' => 'TestFlagType']);
+
+        // Act
+        $this->mock->batchAddFlag([1, 2, 3], ['flag_type' => 'TestFlagType']);
+    }
+
+    /** @test */
+    public function it_sends_batch_remove_flag_request()
+    {
+        // Assert
+        $this->mock->shouldReceive('postRequest')
+            ->once()
+            ->with(Endpoints::BATCH_remove_FLAG, ['user_ids' => [1, 2, 3], 'flag_type' => 'TestFlagType']);
+
+        // Act
+        $this->mock->batchRemoveFlag([1, 2, 3], ['flag_type' => 'TestFlagType']);
+    }
+
+    /** @test */
+    public function it_sends_batch_incident_request()
+    {
+        // Assert
+        Carbon::setTestNow(Carbon::now());
+
+        $this->mock->shouldReceive('postRequest')
+            ->once()
+            ->with(Endpoints::BATCH_INCIDENT, ['user_ids' => [1, 2, 3], 'sent_at' => Carbon::now()->toISOString(), 'type' => 'TestIncident']);
+
+        // Act
+        $this->mock->batchIncident([1, 2, 3], ['type' => 'TestIncident']);
+    }
+
+    /** @test */
     public function it_sends_remove_flag_request()
     {
         // Assert
